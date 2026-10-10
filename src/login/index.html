@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>House Recipe | Login</title>
+        <link rel="icon" type="image/svg+xml" href="/images/house-recipe-icon.svg" />
+        <link rel="stylesheet" href="/css/style.scss" />
+        <script type="module" src="/js/login.js"></script>
+    </head>
+
+    <body>
+        <header class="site-header" id="main-header"></header>
+
+        <main class="site-main">
+            <section class="auth-container">
+                <h1>Welcome Back</h1>
+                <p class="auth-subtitle">Log in to access your favorites and preferences.</p>
+
+                <form id="login-form" class="auth-form">
+                    <label for="login-identifier">Email or Username *</label>
+                    <input
+                        type="text"
+                        id="login-identifier"
+                        name="login-identifier"
+                        required
+                        autocomplete="username"
+                        placeholder="you@example.com or your_username"
+                    />
+
+                    <label for="password">Password *</label>
+                    <input type="password" id="password" name="password" required />
+
+                    <button type="submit" class="auth-submit">Login</button>
+                </form>
+
+                <p id="login-message" class="auth-message hide"></p>
+
+                <p class="auth-footer">
+                    Don't have an account? <a href="/register/">Register here</a>
+                </p>
+            </section>
+        </main>
+
+        <footer class="site-footer" id="main-footer"></footer>
+    </body>
+</html>

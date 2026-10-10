@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>House Recipe | My Favorites</title>
+        <link rel="icon" type="image/svg+xml" href="/images/house-recipe-icon.svg" />
+        <link rel="stylesheet" href="/css/style.scss" />
+        <script type="module" src="/js/favorites.js"></script>
+    </head>
+
+    <body>
+        <header class="site-header" id="main-header"></header>
+
+        <main class="site-main">
+            <section class="recipes-section">
+                <h1>My Favorites</h1>
+                <p class="section-subtitle">Recipes you've saved for later.</p>
+
+                <div id="favorites-list" class="recipes-list">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading your favorites...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer" id="main-footer"></footer>
+
+        <template id="recipe-card-template">
+            <article class="recipe-card" data-recipe-id="">
+                <div class="recipe-card__image-container">
+                    <img class="recipe-card__image" src="" alt="" loading="lazy" />
+                    <button class="favorite-btn" aria-label="Remove from favorites">★</button>
+                </div>
+                <div class="recipe-card__info">
+                    <h3 class="recipe-card__title"></h3>
+                    <p class="recipe-card__category"></p>
+                    <button class="recipe-card__view-btn">View Recipe →</button>
+                </div>
+            </article>
+        </template>
+
+        <div id="recipe-modal" class="modal-overlay hide">
+            <div class="modal">
+                <button id="close-modal" class="modal__close" aria-label="Close">✕</button>
+                <div id="modal-content"></div>
+            </div>
+        </div>
+    </body>
+</html>

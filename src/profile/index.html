@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>House Recipe | My Profile</title>
+        <link rel="icon" type="image/svg+xml" href="/images/house-recipe-icon.svg" />
+        <link rel="stylesheet" href="/css/style.scss" />
+        <script type="module" src="/js/profile.js"></script>
+    </head>
+
+    <body>
+        <header class="site-header" id="main-header"></header>
+
+        <main class="site-main">
+            <section class="profile-container">
+                <h1>My Profile</h1>
+
+                <div id="profile-view" class="profile-view"></div>
+
+                <form id="profile-form" class="auth-form hide">
+                    <h2>Edit Profile</h2>
+
+                    <label for="edit-name">Name</label>
+                    <input type="text" id="edit-name" required minlength="2" maxlength="50" />
+
+                    <label for="edit-username">Username</label>
+                    <input
+                        type="text"
+                        id="edit-username"
+                        required
+                        minlength="3"
+                        maxlength="20"
+                        pattern="[a-zA-Z0-9_]+"
+                        title="Only letters, numbers, and underscores. 3-20 characters."
+                    />
+
+                    <label for="edit-email">Email</label>
+                    <input type="email" id="edit-email" required />
+
+                    <label for="edit-password">New Password (leave blank to keep current)</label>
+                    <input type="password" id="edit-password" minlength="6" />
+
+                    <div class="form-actions">
+                        <button type="submit" class="auth-submit">Save Changes</button>
+                        <button type="button" id="cancel-edit" class="auth-cancel">Cancel</button>
+                    </div>
+                </form>
+
+                <p id="profile-message" class="auth-message hide"></p>
+                <section class="preferences-section">
+                    <h2>&#127869; Dietary Preferences</h2>
+                    <p class="preferences-hint">
+                        Select your dietary restrictions so we can recommend recipes for you.
+                    </p>
+                    <div id="diet-toggles" class="diet-toggles"></div>
+                </section>
+
+                <section class="profile-cta">
+                    <a href="/" class="profile-cta__btn">&#127859; Find Recipes</a>
+                    <a href="/favorites/" class="profile-cta__btn profile-cta__btn--secondary"
+                        >&#10084; My Favorites</a
+                    >
+                </section>
+            </section>
+        </main>
+
+        <footer class="site-footer" id="main-footer"></footer>
+    </body>
+</html>

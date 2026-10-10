@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>House Recipe | Find Recipes with What You Have</title>
+        <link rel="icon" type="image/svg+xml" href="/images/house-recipe-icon.svg" />
+        <link rel="stylesheet" href="/css/style.scss" />
+        <script type="module" src="/js/main.js"></script>
+    </head>
+
+    <body>
+        <header class="site-header" id="main-header"></header>
+
+        <main class="site-main">
+            <section class="hero">
+                <h1>What's in your kitchen?</h1>
+                <p>
+                    Add the ingredients you have and we'll suggest recipes you can make right now.
+                </p>
+            </section>
+
+            <section class="ingredient-section">
+                <form id="ingredient-form" class="ingredient-form">
+                    <label for="ingredient-input" class="visually-hidden">Add an ingredient</label>
+                    <input
+                        type="text"
+                        id="ingredient-input"
+                        class="ingredient-input"
+                        placeholder="e.g., chicken, tomato, rice..."
+                        required
+                        minlength="2"
+                        maxlength="30"
+                    />
+                    <button type="submit" class="add-btn">+ Add</button>
+                </form>
+
+                <div id="ingredient-list" class="ingredient-list"></div>
+
+                <div class="actions">
+                    <button id="search-recipes" class="search-btn" disabled>Find Recipes</button>
+                    <button id="clear-ingredients" class="clear-btn">Clear All</button>
+                </div>
+            </section>
+
+            <section id="recipes-section" class="recipes-section hide">
+                <h2>Recipes You Can Make</h2>
+                <div id="recipes-list" class="recipes-list"></div>
+            </section>
+
+            <div id="recipe-modal" class="modal-overlay hide">
+                <div class="modal">
+                    <button id="close-modal" class="modal__close" aria-label="Close">✕</button>
+                    <div id="modal-content"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer" id="main-footer"></footer>
+
+        <template id="ingredient-template">
+            <span class="ingredient-chip" data-ingredient="">
+                <span class="ingredient-name"></span>
+                <button class="remove-btn" aria-label="Remove ingredient">✕</button>
+            </span>
+        </template>
+
+        <template id="recipe-card-template">
+            <article class="recipe-card" data-recipe-id="">
+                <div class="recipe-card__image-container">
+                    <img class="recipe-card__image" src="" alt="" loading="lazy" />
+                    <button class="favorite-btn" aria-label="Add to favorites">☆</button>
+                </div>
+                <div class="recipe-card__info">
+                    <h3 class="recipe-card__title"></h3>
+                    <p class="recipe-card__category"></p>
+                    <button class="recipe-card__view-btn">View Recipe</button>
+                </div>
+            </article>
+        </template>
+        <div id="welcome-modal" class="modal-overlay hide">
+            <div class="modal welcome-modal">
+                <button id="close-welcome-modal" class="modal__close" aria-label="Close">✕</button>
+
+                <div class="welcome-modal__icon">&#127859;</div>
+
+                <h2 class="welcome-modal__title">
+                    Welcome to <span class="highlight">House Recipe</span>!
+                </h2>
+
+                <p class="welcome-modal__text">
+                    Discover delicious recipes with the ingredients you already have at home. Just
+                    add what's in your kitchen, and we'll suggest meals you can make right now.
+                </p>
+
+                <div class="welcome-modal__features">
+                    <div class="welcome-feature">
+                        <span class="welcome-feature__icon">&#127813;</span>
+                        <span class="welcome-feature__text">Add your ingredients</span>
+                    </div>
+                    <div class="welcome-feature">
+                        <span class="welcome-feature__icon">&#127869;</span>
+                        <span class="welcome-feature__text">Get recipe ideas</span>
+                    </div>
+                    <div class="welcome-feature">
+                        <span class="welcome-feature__icon">&#10084;</span>
+                        <span class="welcome-feature__text">Save your favorites</span>
+                    </div>
+                </div>
+
+                <p class="welcome-modal__cta-text">
+                    <strong>Join House Recipe</strong> to receive updates when new recipes are
+                    added!
+                </p>
+
+                <a href="/register/" id="welcome-register-btn" class="welcome-modal__btn">
+                    Create Free Account
+                </a>
+
+                <button id="no-thanks-btn" class="welcome-modal__no-thanks">
+                    No, thanks. Maybe later.
+                </button>
+            </div>
+        </div>
+    </body>
+</html>
