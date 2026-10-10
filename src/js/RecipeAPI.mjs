@@ -28,6 +28,17 @@ export default class RecipeAPI {
         return uniqueMeals;
     }
 
+    // Search recipes by name
+    async searchByName(query) {
+        const url = `${BASE_URL}/search.php?s=${encodeURIComponent(query)}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data.meals || [];
+    }
+
     // Get a recipe by ID
     async getRecipeById(id) {
         const url = `${BASE_URL}/lookup.php?i=${encodeURIComponent(id)}`;

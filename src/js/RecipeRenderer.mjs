@@ -90,6 +90,9 @@ export default class RecipeRenderer {
                 <strong>Category:</strong> ${escapeHtml(recipe.strCategory || "N/A")} · 
                 <strong>Area:</strong> ${escapeHtml(recipe.strArea || "N/A")}
             </p>
+            <button class="modal__share-btn" data-recipe-id="${recipe.idMeal}">
+                &#128279; Copy link to this recipe
+            </button>
             <h3 class="modal__section-title">Ingredients</h3>
             <ul class="modal__ingredients">
                 ${ingredients.map((i) => `<li>${escapeHtml(i.measure)} ${escapeHtml(i.name)}</li>`).join("")}
@@ -97,6 +100,25 @@ export default class RecipeRenderer {
             <h3 class="modal__section-title">Instructions</h3>
             <p class="modal__instructions">${escapeHtml(recipe.strInstructions || "No instructions provided.")}</p>
         `;
+
+        // Wire up the share button
+        const shareBtn = content.querySelector(".modal__share-btn");
+        if (shareBtn) {
+            shareBtn.addEventListener("click", async () => {
+                const url = `${window.location.origin}/recipe/${recipe.idMeal}`;
+                try {
+                    await navigator.clipboard.writeText(url);
+                    shareBtn.textContent = "Link copied!";
+                    setTimeout(() => {
+                        shareBtn.innerHTML = "&#128279; Copy link to this recipe";
+                    }, 2000);
+                } catch (error) {
+                    console.error("Clipboard error:", error);
+                    // Fallback
+                    window.prompt("Copy this link:", url);
+                }
+            });
+        }
         modal.classList.remove("hide");
     }
 
