@@ -22,11 +22,11 @@ Built as a final project for **WDD 330 – Web Frontend Development II** at BYU-
 
 ## Tech Stack
 
-[Vite](https://vitejs.dev/) - Build tool and dev server 
-[SCSS](https://sass-lang.com/) - Styling with nesting and variables 
-Vanilla JavaScript (ES Modules) - Application logic
-[TheMealDB API](https://www.themealdb.com/api.php) - Recipe data 
-[DiceBear API](https://www.dicebear.com/) - Avatar generation 
-localStorage - Client-side persistence per user 
-ESLint + Prettier - Code quality and formatting 
-[Render](https://render.com/) - Deployment 
+- [Vite](https://vitejs.dev/) — Build tool and dev server
+- [SCSS](https://sass-lang.com/) — Styling with nesting and variables
+- Vanilla JavaScript (ES Modules) — Application logic
+- [TheMealDB API](https://www.themealdb.com/api.php) — Recipe data
+- [DiceBear API](https://www.dicebear.com/) — Avatar generation
+- localStorage — Client-side persistence per user
+- ESLint + Prettier — Code quality and formatting
+- [Render](https://render.com/) — Deployment
