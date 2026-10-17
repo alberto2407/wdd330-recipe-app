@@ -36,7 +36,7 @@ export function renderStats(statsManager, containerSelector = "#visits-stats") {
     }
 
     container.innerHTML = `
-        <h3 class="side-card__title">&#128075; Your Activity</h3>
+        <h3 class="side-card__title">Your Activity</h3>
 
         <div class="stats-item">
             <span class="stats-item__icon">&#128064;</span>

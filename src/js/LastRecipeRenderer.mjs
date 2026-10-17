@@ -17,7 +17,7 @@ export function renderLastRecipe(
     if (!currentRecipe) {
         container.innerHTML = `
             <h3 class="side-card__title">
-                &#127858; Recipe History
+                Recipe History
             </h3>
             <p class="side-card__empty">No recipes yet. Start searching!</p>
         `;
@@ -89,10 +89,10 @@ export function renderLastRecipe(
         // State 3: In shopping list, everything purchased
         bodyHtml = `
             <p class="last-recipe-card__complete">
-                &#9989; All ingredients purchased!
+                All ingredients purchased!
             </p>
             <a href="/shopping-list/" class="last-recipe-card__btn last-recipe-card__btn--shopping">
-                &#128722; View Shopping List
+                View Shopping List
             </a>
         `;
     } else {
@@ -120,7 +120,7 @@ export function renderLastRecipe(
     // ---------- Render the card content ----------
     container.innerHTML = `
         <h3 class="side-card__title">
-            &#127858; Recipe History
+            Recipe History
             ${statusBadge}
         </h3>
 

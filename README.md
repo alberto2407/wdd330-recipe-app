@@ -16,15 +16,18 @@ Built as a final project for **WDD 330 – Web Frontend Development II** at BYU-
 - 🔍 **Search recipes by ingredients** — Add what's in your kitchen and get recipe ideas instantly.
 - 🔎 **Search by name** — Find recipes by title.
 - 🎲 **Surprise Me** — Get a random recipe suggestion.
+- 📄 **Recipe detail page** — Full page view with ingredients, instructions, and embedded YouTube video.
+- 🛒 **Shopping List** — Add recipes and track ingredients to buy. Check them off as you go.
+- 🕒 **Recipe History** — See the last recipes you viewed, with "previous/next" navigation and "still to buy" status.
+- 📊 **Your Activity** — Track how many times you've visited and when was your last visit.
 - 👤 **User accounts** — Register, login with email or username, and edit your profile.
 - ❤️ **Favorites** — Save recipes per user with persistent storage.
 - 🌙 **Dark Mode** — Toggle between light and dark themes, saved per user.
 - 🥗 **Dietary Preferences** — Filter recipes by vegetarian, vegan, gluten-free, keto, paleo, low-carb, dairy-free, and pescatarian.
-- 🔗 **Shareable recipe links** — Every recipe has its own URL (`/recipe/{id}`).
+- 🔗 **Shareable recipe links** — Every recipe has its own URL (`/recipe/?id={id}`).
 - 🎨 **Custom avatars** — Powered by DiceBear.
 - 🎉 **Welcome modal** — Shown only on the first visit.
 - 📱 **Responsive design** — Works on mobile, tablet, and desktop.
-
 
 ---
 
