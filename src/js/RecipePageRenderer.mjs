@@ -81,7 +81,6 @@ export default class RecipePageRenderer {
 
         // Render the page
         this.container.innerHTML = `
-
             <div class="recipe-page__hero">
                 <img class="recipe-page__image" src="${escapeHtml(recipe.strMealThumb)}" alt="${escapeHtml(recipe.strMeal)}"/>
             </div>
@@ -93,7 +92,7 @@ export default class RecipePageRenderer {
                 ${recipe.strArea ? `<span><strong>Area:</strong> ${escapeHtml(recipe.strArea)}</span>` : ""}
             </p>
 
-                        <div class="recipe-page__actions">
+            <div class="recipe-page__actions">
                 <button class="recipe-page__action-btn" id="back-btn" aria-label="Go back">
                     &#8592; Back
                 </button>
@@ -121,20 +120,21 @@ export default class RecipePageRenderer {
                     <h2 class="recipe-page__section-title">&#129367; Ingredients</h2>
                     <ul class="recipe-page__ingredients">
                         ${ingredients
-                            .map((i) => `<li>${escapeHtml(i.measure)} ${escapeHtml(i.name)}</li>`)
-                            .join("")}
+                .map((i) => `<li>${escapeHtml(i.measure)} ${escapeHtml(i.name)}</li>`)
+                .join("")}
                     </ul>
                 </section>
 
                 <section class="recipe-page__section">
                     <h2 class="recipe-page__section-title">&#128203; Instructions</h2>
                     <p class="recipe-page__instructions">${escapeHtml(
-                        recipe.strInstructions || "No instructions provided."
-                    )}</p>
+                    recipe.strInstructions || "No instructions provided."
+                )}</p>
                 </section>
             </div>
 
             ${youtubeEmbed}
+            <div class="recipe-page__section comments-section" id="recipe-comments"></div>
         `;
 
         // Wire event listeners

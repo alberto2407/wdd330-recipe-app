@@ -1,6 +1,8 @@
 import { createShoppingListManager } from "./ShoppingListManager.mjs";
 import { createLastRecipeManager } from "./LastRecipeManager.mjs";
 import { createFavoritesManager } from "./FavoritesManager.mjs";
+import { createCommentsManager } from "./CommentsManager.mjs";
+import { renderComments } from "./CommentsRenderer.mjs";
 import { createUserManager } from "./UserManager.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 import { updateAuthUI } from "./AuthUI.mjs";
@@ -60,6 +62,10 @@ import RecipePageRenderer from "./RecipePageRenderer.mjs";
                 return success ? "added" : "already";
             },
         });
+
+        // Initialize comments section
+        const commentsManager = createCommentsManager(recipeId);
+        renderComments(commentsManager, "#recipe-comments");
     } catch (error) {
         console.error("Error loading recipe:", error);
         renderer.renderError("Oops!", "Could not load the recipe. Please try again later.");
