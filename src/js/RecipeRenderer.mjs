@@ -107,8 +107,6 @@ export default class RecipeRenderer {
             <ul class="modal__ingredients">
                 ${ingredients.map((i) => `<li>${escapeHtml(i.measure)} ${escapeHtml(i.name)}</li>`).join("")}
             </ul>
-            <h3 class="modal__section-title">Instructions</h3>
-            <p class="modal__instructions">${escapeHtml(recipe.strInstructions || "No instructions provided.")}</p>
         `;
 
         // Wire up the share button
