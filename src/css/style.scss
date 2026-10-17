@@ -2595,6 +2595,28 @@ body.dark-mode {
     }
 }
 
+// Mobile layout
+@media screen and (max-width: 500px) {
+    .recipe-page__actions {
+        flex-direction: column;
+
+        .recipe-page__action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    .modal__action-row {
+        flex-direction: column;
+
+        > * {
+            flex: 1 1 auto;
+            white-space: normal;
+            text-overflow: clip;
+        }
+    }
+}
+
 // Media queries
 
 @media screen and (max-width: 600px) {

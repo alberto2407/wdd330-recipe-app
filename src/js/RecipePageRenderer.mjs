@@ -81,7 +81,19 @@ export default class RecipePageRenderer {
 
         // Render the page
         this.container.innerHTML = `
-            <div class="recipe-page__actions">
+
+            <div class="recipe-page__hero">
+                <img class="recipe-page__image" src="${escapeHtml(recipe.strMealThumb)}" alt="${escapeHtml(recipe.strMeal)}"/>
+            </div>
+
+            <h1 class="recipe-page__title">${escapeHtml(recipe.strMeal)}</h1>
+
+            <p class="recipe-page__meta">
+                ${recipe.strCategory ? `<span><strong>Category:</strong> ${escapeHtml(recipe.strCategory)}</span>` : ""}
+                ${recipe.strArea ? `<span><strong>Area:</strong> ${escapeHtml(recipe.strArea)}</span>` : ""}
+            </p>
+
+                        <div class="recipe-page__actions">
                 <button class="recipe-page__action-btn" id="back-btn" aria-label="Go back">
                     &#8592; Back
                 </button>
@@ -103,17 +115,6 @@ export default class RecipePageRenderer {
                     ${isInList ? "&#10003; In Shopping List" : "&#128722; Add to Shopping List"}
                 </button>
             </div>
-
-            <div class="recipe-page__hero">
-                <img class="recipe-page__image" src="${escapeHtml(recipe.strMealThumb)}" alt="${escapeHtml(recipe.strMeal)}"/>
-            </div>
-
-            <h1 class="recipe-page__title">${escapeHtml(recipe.strMeal)}</h1>
-
-            <p class="recipe-page__meta">
-                ${recipe.strCategory ? `<span><strong>Category:</strong> ${escapeHtml(recipe.strCategory)}</span>` : ""}
-                ${recipe.strArea ? `<span><strong>Area:</strong> ${escapeHtml(recipe.strArea)}</span>` : ""}
-            </p>
 
             <div class="recipe-page__content">
                 <section class="recipe-page__section">
