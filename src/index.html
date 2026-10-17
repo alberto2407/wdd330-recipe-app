@@ -20,53 +20,77 @@
                 </p>
             </section>
 
-            <section class="ingredient-section">
-                <form id="ingredient-form" class="ingredient-form">
-                    <label for="ingredient-input" class="visually-hidden">Add an ingredient</label>
-                    <input
-                        type="text"
-                        id="ingredient-input"
-                        class="ingredient-input"
-                        placeholder="e.g., chicken, tomato, rice..."
-                        required
-                        minlength="2"
-                        maxlength="30"
-                    />
-                    <button type="submit" class="add-btn">+ Add</button>
-                </form>
+            <div class="home-grid">
+                <!-- Last recipe -->
+                <aside class="home-side home-side--left">
+                    <div id="last-recipe-card" class="side-card">
+                        <h2 class="side-card__title">&#127858; Last Recipe</h2>
+                        <p class="side-card__empty">No recipes yet. Start searching!</p>
+                    </div>
+                </aside>
 
-                <div id="ingredient-list" class="ingredient-list"></div>
+                <!-- Ingredients -->
+                <div class="home-center">
+                    <div class="ingredient-section">
+                        <form id="ingredient-form" class="ingredient-form">
+                            <label for="ingredient-input" class="visually-hidden"
+                                >Add an ingredient</label
+                            >
+                            <input
+                                type="text"
+                                id="ingredient-input"
+                                class="ingredient-input"
+                                placeholder="e.g., chicken, tomato, rice..."
+                                required
+                                minlength="2"
+                                maxlength="30"
+                            />
+                            <button type="submit" class="add-btn">+ Add</button>
+                        </form>
 
-                <div class="actions">
-                    <button id="search-recipes" class="search-btn" disabled>Find Recipes</button>
-                    <button id="clear-ingredients" class="clear-btn">Clear All</button>
+                        <div id="ingredient-list" class="ingredient-list"></div>
+
+                        <div class="actions">
+                            <button id="search-recipes" class="search-btn" disabled>
+                                Find Recipes
+                            </button>
+                            <button id="clear-ingredients" class="clear-btn">Clear All</button>
+                        </div>
+                    </div>
+
+                    <section class="search-section">
+                        <h2 class="search-section__title">Or search by recipe name</h2>
+                        <form id="name-search-form" class="search-section__form">
+                            <label for="name-search-input" class="visually-hidden"
+                                >Search recipes by name</label
+                            >
+                            <input
+                                type="text"
+                                id="name-search-input"
+                                class="search-section__input"
+                                placeholder="e.g., chicken, pasta, curry..."
+                                minlength="2"
+                                maxlength="50"
+                            />
+                            <button type="submit" class="search-section__btn">Search</button>
+                        </form>
+                    </section>
+
+                    <div class="surprise-section">
+                        <p class="surprise-section__hint">
+                            Not sure what to cook? Let us surprise you!
+                        </p>
+                        <button id="surprise-btn" class="surprise-btn">
+                            &#127922; Surprise Me
+                        </button>
+                    </div>
                 </div>
 
-                <section class="search-section">
-                    <h2 class="search-section__title">Or search by recipe name</h2>
-                    <form id="name-search-form" class="search-section__form">
-                        <label for="name-search-input" class="visually-hidden"
-                            >Search recipes by name</label
-                        >
-                        <input
-                            type="text"
-                            id="name-search-input"
-                            class="search-section__input"
-                            placeholder="e.g., chicken, pasta, curry..."
-                            minlength="2"
-                            maxlength="50"
-                        />
-                        <button type="submit" class="search-section__btn">Search</button>
-                    </form>
-                </section>
-
-                <div class="surprise-section">
-                    <p class="surprise-section__hint">
-                        Not sure what to cook? Let us surprise you!
-                    </p>
-                    <button id="surprise-btn" class="surprise-btn">&#127922; Surprise Me</button>
-                </div>
-            </section>
+                <!-- Stats -->
+                <aside class="home-side home-side--right">
+                    <div id="visits-stats" class="side-card"></div>
+                </aside>
+            </div>
 
             <section id="recipes-section" class="recipes-section hide">
                 <h2>Recipes You Can Make</h2>

@@ -5,6 +5,7 @@ export default class RecipeRenderer {
     constructor(containerSelector) {
         this.container = document.querySelector(containerSelector);
         this.template = document.querySelector("#recipe-card-template");
+        this.onAddToShoppingList = null;
     }
 
     // Render a list of recipes
@@ -63,6 +64,7 @@ export default class RecipeRenderer {
             this.container.appendChild(clone);
         });
     }
+
     // Show recipe details in a modal
     showDetails(recipe, modalSelector, contentSelector) {
         const modal = document.querySelector(modalSelector);
@@ -90,9 +92,17 @@ export default class RecipeRenderer {
                 <strong>Category:</strong> ${escapeHtml(recipe.strCategory || "N/A")} · 
                 <strong>Area:</strong> ${escapeHtml(recipe.strArea || "N/A")}
             </p>
-            <button class="modal__share-btn" data-recipe-id="${recipe.idMeal}">
-                &#128279; Copy link to this recipe
-            </button>
+            <div class="modal__action-row">
+                <button class="modal__share-btn" data-recipe-id="${recipe.idMeal}">
+                    &#128279; Copy link
+                </button>
+                <button class="modal__shopping-btn" data-recipe-id="${recipe.idMeal}">
+                    &#128722; Add to Shopping List
+                </button>
+                <a class="modal__full-link" href="/recipe/?id=${recipe.idMeal}" data-recipe-id="${recipe.idMeal}">
+                    &#128196; View Full Recipe
+                </a>
+            </div>
             <h3 class="modal__section-title">Ingredients</h3>
             <ul class="modal__ingredients">
                 ${ingredients.map((i) => `<li>${escapeHtml(i.measure)} ${escapeHtml(i.name)}</li>`).join("")}
@@ -105,12 +115,13 @@ export default class RecipeRenderer {
         const shareBtn = content.querySelector(".modal__share-btn");
         if (shareBtn) {
             shareBtn.addEventListener("click", async () => {
-                const url = `${window.location.origin}/recipe/${recipe.idMeal}`;
+                // ← FIX: usar ?id= para consistencia y evitar 404 en local
+                const url = `${window.location.origin}/recipe/?id=${recipe.idMeal}`;
                 try {
                     await navigator.clipboard.writeText(url);
                     shareBtn.textContent = "Link copied!";
                     setTimeout(() => {
-                        shareBtn.innerHTML = "&#128279; Copy link to this recipe";
+                        shareBtn.innerHTML = "&#128279; Copy link";
                     }, 2000);
                 } catch (error) {
                     console.error("Clipboard error:", error);
@@ -119,7 +130,33 @@ export default class RecipeRenderer {
                 }
             });
         }
+
+        // Wire up the "Add to Shopping List" button
+        const shoppingBtn = content.querySelector(".modal__shopping-btn");
+        if (shoppingBtn && this.onAddToShoppingList) {
+            shoppingBtn.addEventListener("click", () => {
+                const success = this.onAddToShoppingList(recipe);
+                if (success) {
+                    shoppingBtn.innerHTML = "&#10003; Added!";
+                    shoppingBtn.classList.add("is-added");
+                    setTimeout(() => {
+                        shoppingBtn.innerHTML = "&#128722; Add to Shopping List";
+                        shoppingBtn.classList.remove("is-added");
+                    }, 2000);
+                } else {
+                    shoppingBtn.innerHTML = "&#10003; Already in List";
+                    setTimeout(() => {
+                        shoppingBtn.innerHTML = "&#128722; Add to Shopping List";
+                    }, 2000);
+                }
+            });
+        }
         modal.classList.remove("hide");
+    }
+
+    // Set the handler for adding to the shopping list
+    setShoppingListHandler(handler) {
+        this.onAddToShoppingList = handler;
     }
 
     // Hide the recipe details modal

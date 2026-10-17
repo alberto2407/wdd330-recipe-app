@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>House Recipe | Shopping List</title>
+        <link rel="icon" type="image/svg+xml" href="/images/house-recipe-icon.svg" />
+        <link rel="stylesheet" href="/css/style.scss" />
+        <script type="module" src="/js/shopping-list.js"></script>
+    </head>
+
+    <body>
+        <header class="site-header" id="main-header"></header>
+
+        <main class="site-main">
+            <section class="shopping-list-container">
+                <header class="shopping-list-header">
+                    <h1>&#128722; My Shopping List</h1>
+                    <p class="shopping-list-subtitle">
+                        Ingredients you need to buy for your planned recipes.
+                    </p>
+                    <div class="shopping-list-actions">
+                        <button
+                            id="clear-checked-btn"
+                            class="shopping-list-btn shopping-list-btn--secondary"
+                        >
+                            &#10003; Clear Checked
+                        </button>
+                        <button
+                            id="clear-all-btn"
+                            class="shopping-list-btn shopping-list-btn--danger"
+                        >
+                            &#128465; Clear All
+                        </button>
+                    </div>
+
+                    <div id="filter-tabs" class="filter-tabs">
+                        <button class="filter-tab filter-tab--active" data-filter="all">All</button>
+                        <button class="filter-tab" data-filter="incomplete">Incomplete</button>
+                    </div>
+                </header>
+
+                <div id="shopping-list-content">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading your shopping list...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer" id="main-footer"></footer>
+    </body>
+</html>

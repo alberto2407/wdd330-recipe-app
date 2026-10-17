@@ -14,7 +14,15 @@
 
         <main class="site-main">
             <section class="recipes-section">
-                <h1>My Favorites</h1>
+                <!-- Actions bar (top) -->
+                <div class="recipe-page__actions">
+                    <a href="/" class="recipe-page__action-btn"> &#8592; Back to Home </a>
+                    <a href="/shopping-list/" class="recipe-page__action-btn">
+                        &#128722; Shopping List
+                    </a>
+                </div>
+
+                <h1>My Favorites <span id="favorites-count" class="favorites-count"></span></h1>
                 <p class="section-subtitle">Recipes you've saved for later.</p>
 
                 <div id="favorites-list" class="recipes-list">
@@ -35,7 +43,7 @@
                     <button class="favorite-btn" aria-label="Remove from favorites">★</button>
                 </div>
                 <div class="recipe-card__info">
-                    <h3 class="recipe-card__title"></h3>
+                    <div class="recipe-card__title"></div>
                     <p class="recipe-card__category"></p>
                     <button class="recipe-card__view-btn">View Recipe →</button>
                 </div>

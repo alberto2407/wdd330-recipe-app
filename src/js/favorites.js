@@ -1,6 +1,8 @@
-import { qs, loadHeaderFooter } from "./utils.mjs";
-import { createUserManager } from "./UserManager.mjs";
+import { createShoppingListManager } from "./ShoppingListManager.mjs";
+import { createLastRecipeManager } from "./LastRecipeManager.mjs";
 import { createFavoritesManager } from "./FavoritesManager.mjs";
+import { createUserManager } from "./UserManager.mjs";
+import { qs, loadHeaderFooter } from "./utils.mjs";
 import { updateAuthUI } from "./AuthUI.mjs";
 import RecipeAPI from "./RecipeAPI.mjs";
 import RecipeRenderer from "./RecipeRenderer.mjs";
@@ -11,12 +13,20 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
 
     const userManager = createUserManager();
     const favoritesManager = createFavoritesManager();
+    const lastRecipeManager = createLastRecipeManager();
+    const shoppingListManager = createShoppingListManager();
     const recipeAPI = new RecipeAPI();
     const recipeRenderer = new RecipeRenderer("#favorites-list");
 
     updateAuthUI(userManager);
 
     const favoriteIds = favoritesManager.getAll();
+
+    // Update the favorites counter in the page title
+    const countEl = qs("#favorites-count");
+    if (countEl) {
+        countEl.textContent = `(${favoriteIds.length})`;
+    }
 
     if (favoriteIds.length === 0) {
         qs("#favorites-list").innerHTML = `
@@ -27,6 +37,8 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
     `;
         return;
     }
+
+    recipeRenderer.setShoppingListHandler((recipe) => shoppingListManager.addRecipe(recipe));
 
     try {
         // Fetch all favorite recipes in parallel
@@ -58,6 +70,10 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
         // Fetch the recipe details
         try {
             const recipe = await recipeAPI.getRecipeById(recipeId);
+
+            // Save to history so it appears in the home side card
+            lastRecipeManager.save(recipe);
+
             recipeRenderer.showDetails(recipe, "#recipe-modal", "#modal-content");
         } catch (error) {
             console.error("Error loading recipe details:", error);

@@ -2,6 +2,11 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import { createUserManager } from "./UserManager.mjs";
 
+// Dispatch a custom event so the header can update its badge in real time
+function notifyFavoritesUpdated(count) {
+    window.dispatchEvent(new CustomEvent("favoritesUpdated", { detail: { count } }));
+}
+
 // Create a FavoritesManager
 export function createFavoritesManager() {
     const userManager = createUserManager();
@@ -24,10 +29,12 @@ export function createFavoritesManager() {
             if (index === -1) {
                 favorites.push(id);
                 persist();
+                notifyFavoritesUpdated(favorites.length);
                 return true; // Added
             } else {
                 favorites.splice(index, 1);
                 persist();
+                notifyFavoritesUpdated(favorites.length);
                 return false; // Removed
             }
         },
@@ -51,6 +58,7 @@ export function createFavoritesManager() {
         clear() {
             favorites = [];
             persist();
+            notifyFavoritesUpdated(0);
         },
     };
 }

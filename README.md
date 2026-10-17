@@ -1,4 +1,8 @@
-#  House Recipe
+# BYU-Pathway Worldwide Online
+
+## WDD 330 - Web Frontend Development II
+
+###  House Recipe
 
 A web application that helps you to find recipes based on the ingredients you already have at home.
 Built as a final project for **WDD 330 – Web Frontend Development II** at BYU-Idaho.
@@ -10,13 +14,17 @@ Built as a final project for **WDD 330 – Web Frontend Development II** at BYU-
 ## Features
 
 - 🔍 **Search recipes by ingredients** — Add what's in your kitchen and get recipe ideas instantly.
+- 🔎 **Search by name** — Find recipes by title.
+- 🎲 **Surprise Me** — Get a random recipe suggestion.
 - 👤 **User accounts** — Register, login with email or username, and edit your profile.
 - ❤️ **Favorites** — Save recipes per user with persistent storage.
 - 🌙 **Dark Mode** — Toggle between light and dark themes, saved per user.
 - 🥗 **Dietary Preferences** — Filter recipes by vegetarian, vegan, gluten-free, keto, paleo, low-carb, dairy-free, and pescatarian.
+- 🔗 **Shareable recipe links** — Every recipe has its own URL (`/recipe/{id}`).
 - 🎨 **Custom avatars** — Powered by DiceBear.
 - 🎉 **Welcome modal** — Shown only on the first visit.
 - 📱 **Responsive design** — Works on mobile, tablet, and desktop.
+
 
 ---
 
@@ -30,3 +38,14 @@ Built as a final project for **WDD 330 – Web Frontend Development II** at BYU-
 - localStorage — Client-side persistence per user
 - ESLint + Prettier — Code quality and formatting
 - [Render](https://render.com/) — Deployment
+
+## Prerequisites
+
+- You must have Node installed to run the following commands.
+
+## Common Workflow Commands
+
+- `npm run lint` to run ESLint against your code to find errors.
+- `npm run format` to run Prettier to automatically format your code.
+- `npm run dev` starts up a local server and updates on any JS or CSS/SCSS
+- `npm run build` to build final files when you are ready to turn in.

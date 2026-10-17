@@ -1,9 +1,14 @@
+import { createShoppingListManager } from "./ShoppingListManager.mjs";
 import { createPreferencesManager } from "./PreferencesManager.mjs";
+import { createLastRecipeManager } from "./LastRecipeManager.mjs";
 import { createIngredientManager } from "./IngredientManager.mjs";
 import { createFavoritesManager } from "./FavoritesManager.mjs";
 import { qs, loadHeaderFooter, escapeHtml } from "./utils.mjs";
+import { renderLastRecipe } from "./LastRecipeRenderer.mjs";
+import { createStatsManager } from "./StatsManager.mjs";
 import { createUserManager } from "./UserManager.mjs";
 import { initWelcomeModal } from "./WelcomeModal.mjs";
+import { renderStats } from "./StatsRenderer.mjs";
 import { updateAuthUI } from "./AuthUI.mjs";
 import RecipeAPI from "./RecipeAPI.mjs";
 import RecipeRenderer from "./RecipeRenderer.mjs";
@@ -12,9 +17,12 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
 (async () => {
     await loadHeaderFooter();
 
+    const shoppingListManager = createShoppingListManager();
     const preferencesManager = createPreferencesManager();
+    const lastRecipeManager = createLastRecipeManager();
     const ingredientManager = createIngredientManager();
     const favoritesManager = createFavoritesManager();
+    const statsManager = createStatsManager();
     const userManager = createUserManager();
     const recipeAPI = new RecipeAPI();
     const recipeRenderer = new RecipeRenderer("#recipes-list");
@@ -38,6 +46,15 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
     updateAuthUI(userManager);
     initWelcomeModal();
 
+    recipeRenderer.setShoppingListHandler((recipe) => {
+        const success = shoppingListManager.addRecipe(recipe);
+
+        // Re-render the Recipe History card.
+        renderLastRecipe(lastRecipeManager, shoppingListManager);
+
+        return success;
+    });
+
     // Render initial list of ingredients
     function renderIngredients() {
         ingredientList.innerHTML = "";
@@ -47,6 +64,9 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
         if (ingredients.length === 0) {
             ingredientList.innerHTML = `<p class="empty-state">No ingredients yet. Add some above!</p>`;
             searchBtn.disabled = true;
+
+            // Re-render recipe history card
+            renderLastRecipe(lastRecipeManager, shoppingListManager);
             return;
         }
 
@@ -65,7 +85,11 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
             ingredientList.appendChild(clone);
         });
 
+        // Enable the "Find Recipes" button when there's at least 1 ingredient
         searchBtn.disabled = false;
+
+        // Update the "Recipe History" card when ingredients change
+        renderLastRecipe(lastRecipeManager, shoppingListManager);
     }
 
     // Search for recipes
@@ -118,6 +142,11 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
             if (!recipe) {
                 throw new Error("No recipe returned");
             }
+            // Save as last viewed recipe
+            lastRecipeManager.save(recipe);
+            // Update the "Recipe History" card immediately
+            renderLastRecipe(lastRecipeManager, shoppingListManager);
+
             recipeRenderer.showDetails(recipe, "#recipe-modal", "#modal-content");
             updateUrlForRecipe(recipe.idMeal);
         } catch (error) {
@@ -169,24 +198,25 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
 
     // Deep linking: update URL when opening a recipe
     function updateUrlForRecipe(recipeId) {
-        const newUrl = `/recipe/${recipeId}`;
-        if (window.location.pathname !== newUrl) {
+        const newUrl = `/?recipe=${recipeId}`;
+        if (window.location.pathname + window.location.search !== newUrl) {
             window.history.pushState({ recipeId }, "", newUrl);
         }
     }
 
     // Deep linking: clear URL when closing the modal
     function clearRecipeUrl() {
-        if (window.location.pathname.startsWith("/recipe/")) {
+        if (window.location.search.includes("recipe=")) {
             window.history.pushState({}, "", "/");
         }
     }
 
     // Deep linking: check URL on load and open modal if needed
     function checkUrlForRecipe() {
-        const match = window.location.pathname.match(/^\/recipe\/(\d+)\/?$/);
-        if (match) {
-            handleViewRecipe(match[1]);
+        const params = new URLSearchParams(window.location.search);
+        const recipeId = params.get("recipe");
+        if (recipeId) {
+            handleViewRecipe(recipeId);
         }
     }
 
@@ -204,6 +234,12 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
 
         try {
             const recipe = await recipeAPI.getRecipeById(recipeId);
+
+            // Save as last viewed recipe
+            lastRecipeManager.save(recipe);
+            // Update the "Recipe History" card immediately
+            renderLastRecipe(lastRecipeManager, shoppingListManager);
+
             recipeRenderer.showDetails(recipe, "#recipe-modal", "#modal-content");
         } catch (error) {
             console.error("Error loading recipe details:", error);
@@ -271,14 +307,23 @@ import RecipeRenderer from "./RecipeRenderer.mjs";
 
     // Deep linking
     window.addEventListener("popstate", () => {
-        if (window.location.pathname.startsWith("/recipe/")) {
+        if (window.location.search.includes("recipe=")) {
             checkUrlForRecipe();
         } else {
             recipeRenderer.hideDetails("#recipe-modal");
         }
     });
 
+    // Render history when the page is shown
+    window.addEventListener("pageshow", () => {
+        const freshShoppingListManager = createShoppingListManager();
+        renderLastRecipe(lastRecipeManager, freshShoppingListManager);
+    });
+
     // Render initial list of ingredients
+    statsManager.trackVisit();
+    renderStats(statsManager);
     renderIngredients();
     checkUrlForRecipe();
+    renderLastRecipe(lastRecipeManager, shoppingListManager);
 })();
